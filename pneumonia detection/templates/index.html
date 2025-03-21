@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Pneumonia Detection System</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <p class="lead">Upload a chest X-ray image to detect pneumonia and get an AI-powered medical report</p>
+                        </div>
+                        
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        
+                        <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" class="text-center">
+                            <div class="custom-file mb-4">
+                                <input type="file" class="custom-file-input" id="file" name="file" accept=".png, .jpg, .jpeg" required>
+                                <label class="custom-file-label" for="file">Choose X-ray image...</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Analyze X-ray</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{ url_for('about') }}" class="text-muted">About this system</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Display filename when selected
+        $('.custom-file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').html(fileName);
+        });
+    </script>
+</body>
+</html>
