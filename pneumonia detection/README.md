@@ -52,6 +52,3 @@ pneumonia-detection/
 2. Upload a chest X-ray image
 3. View the classification results, severity assessment, Grad-CAM visualization, and AI-generated medical report
 
-## License
-
-MIT
